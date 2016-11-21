@@ -1,4 +1,4 @@
-package com.test.uiautomator2.test;
+package com.example.hw.uiautomator.test;
 
 import android.app.Instrumentation;
 import android.content.Context;
