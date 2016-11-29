@@ -12,7 +12,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.StaleObjectException;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 
 
@@ -110,7 +113,22 @@ public class TestUtil {
             return false;
         }
     }
+    public boolean performClickByResIdandInstance(String id, int instance) throws UiObjectNotFoundException {
+        mUiDevice.wait(Until.findObject(By.res(id).pkg(mTarPkgString)), mTimeOut);
+        UiObject object = mUiDevice.findObject(new UiSelector().resourceId(id).instance(instance));
 
+        if (object != null) {
+            object.click();
+            // long ts = System.currentTimeMillis();
+            // String capturePNG = String.valueOf(ts) + ".png";
+            //  Util.recordPerformance(ts, capturePNG, object2.getVisibleCenter(), mContext, mUiDevice, mTarPkgString);
+            SystemClock.sleep(2000);
+            // Util.captureScreen(String.valueOf(ts), mUiDevice);
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean performClickByText(String text) {
         boolean isNull = true;
         int i = 0;
